@@ -38,19 +38,21 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <v-content>
+        <Phonebook/>
+      </v-content>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Phonebook from './components/Phonebook';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    Phonebook,
   },
 
   data: () => ({
