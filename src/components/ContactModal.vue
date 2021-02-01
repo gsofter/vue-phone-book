@@ -40,7 +40,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn v-if="!isEditing" flat  @click="$emit('edit')"> Edit </v-btn>
+          <v-btn v-if="!isEditing" flat @click="$emit('edit')"> Edit </v-btn>
           <v-btn v-if="!isEditing" flat @click="$emit('delete')" color="purple">Delete</v-btn>
           <v-btn v-if="!isEditing" flat @click="$emit('delete')" color="purple">Delete</v-btn>
           <v-btn :disabled="!isSaveBtnActive" v-if="isEditing" flat @click="saveClick">Save</v-btn>
