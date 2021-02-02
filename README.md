@@ -1,4 +1,7 @@
 # Front-end Engineer Take Home Challenge
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1e4b7388-beec-419b-8156-08d5e48db5e4/deploy-status)](https://app.netlify.com/sites/gphone-book/deploys)
+
+[live demo](https://gphone-book.netlify.app/)
 
 ## Overview
 
