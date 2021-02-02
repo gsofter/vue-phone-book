@@ -1,5 +1,5 @@
 <template>
-  <v-layout row class="mt-5">
+  <v-layout row class="main-layout">
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <Toolbar />
@@ -11,22 +11,15 @@
             <v-icon>mdi-plus</v-icon></v-btn
           >
         </v-card-title>
-        <v-list two-line>
-          <template v-for="(item, i) in FILTERED_ITEMS">
-            <v-subheader v-if="showSubheader(i, item)" :key="item.guid + 2">
-              {{ item.name && item.name[0] | subheaderFilter }}
-            </v-subheader>
+        <v-virtual-scroll
+          :items="FILTERED_ITEMS"
+          :item-height="65"
+          height="500px"
+        >
+          <template v-slot:default="{ item }">
             <ContactItem :item="item" :key="item.guid" />
           </template>
-
-          <v-alert
-            v-if="!FILTERED_ITEMS.length"
-            :value="true"
-            type="warning"
-            outline
-            >{{ noItems }}
-          </v-alert>
-        </v-list>
+        </v-virtual-scroll>
       </v-card>
 
       <ContactModal
@@ -77,20 +70,29 @@ export default {
     },
     closeModal() {
       this.showDialog = false;
-      console.log('closeModal')
+      console.log("closeModal");
     },
     saveClick(newItem) {
       this.showDialog = false;
-      this.NEW_ITEM(newItem)
+      this.NEW_ITEM(newItem);
     }
   },
   filters: {
     subheaderFilter(e) {
-        return typeof e == 'string' && e.toUpperCase() || ''
-      }
+      return (typeof e == "string" && e.toUpperCase()) || "";
+    }
   }
 };
 </script>
 
 <style scoped>
+.main-layout {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  .main-layout {
+    margin-top: 0px;
+  }
+}
 </style>

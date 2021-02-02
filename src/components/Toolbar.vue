@@ -1,36 +1,24 @@
 <template>
-    
-     <v-toolbar>
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
-          <v-toolbar-title> Phone book </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </v-toolbar>
+  <v-app-bar app flat color="cyan">
+    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-toolbar-title> Phone book </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn
+      text
+      href="https://github.com/gsofter/vue-phone-book"
+      target="_blank"
+    >
+      <span class="mr-2 ml-1"> Repository</span>
+    </v-btn>
+  </v-app-bar>
 </template>
 
 <script>
-
 export default {
-    // components: {
-    //     SearchList
-    // },
-
-    name: 'Toolbar',
-
-    data () {
-        return {}
-    },
-
-    methods: {
-        
-    }
-}
+  name: "Toolbar",
+  data() {
+    return {};
+  },
+  methods: {}
+};
 </script>

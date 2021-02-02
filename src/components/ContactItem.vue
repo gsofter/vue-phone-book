@@ -4,17 +4,18 @@
       slot-scope="{ hover }"
       :class="`elevation-${hover ? 5 : 2}`"
       class="mx-auto contact-row px-4"
-      @click="itemClick"
+      v-on:click="itemClick($event)"
     >
+      <v-divider :key="item.phone" :inset="true" />
       <div class="contact-item py-2">
-        <div class="avatar"> 
+        <div class="avatar">
           <span> <i class="fas fa-user-circle"></i> </span>
         </div>
         <div class="contact-info">
-          <p class="username"> {{ item.name }} </p>
-          <p class="phone"> {{ item.phone }} </p>
+          <p class="username">{{ item.name }}</p>
+          <p class="phone">{{ item.phone }}</p>
         </div>
-        <div class="spacer"> </div>
+        <div class="spacer"></div>
         <div class="actions">
           <ActionButtons :item="item" @edit="editClick" @delete="deleteClick" />
         </div>
@@ -25,66 +26,79 @@
         :show="showDialog"
         :isEditing="isEditing"
         @edit="editClick"
-        @delete="deleteClick"
         @close="closeModal"
         @save="saveClick"
         @cancel="cancelClick"
+      />
+
+      <DeleteConfirmModal
+        :show="showDeleteDialog"
+        @close="closeDeleteConfirmModal"
+        @delete="deleteConfirmClick"
       />
     </v-card>
   </v-hover>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import ActionButtons from './ActionButtons'
-import ContactModal from './ContactModal'
+import { mapMutations } from "vuex";
+import ActionButtons from "./ActionButtons";
+import ContactModal from "./ContactModal";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
 export default {
   name: "ContactItem",
   props: ["item"],
   components: {
     ActionButtons,
-    ContactModal
+    ContactModal,
+    DeleteConfirmModal
   },
   data() {
     return {
       showDialog: false,
-      isEditing: false
+      isEditing: false,
+      showDeleteDialog: false
     };
   },
 
   methods: {
-      ...mapMutations([
-          'SET_ITEM',
-          'DELETE_ITEM',
-          'SET_SNACK_MSG'
-      ]),
-      editClick() {
-          console.log("editClick => ", this.item.guid)
-          this.isEditing = true;
-          this.showDialog = true;
-      },
-      deleteClick() {
-        this.DELETE_ITEM(this.item.guid)
-        this.SET_SNACK_MSG('Contact has been deleted')
-      },
-      saveClick(newItem) {
-        console.warn('save')
-        this.SET_ITEM(newItem)
-        this.isEditing = false
-        this.SET_SNACK_MSG('Contact has been updated')
-      },
-      closeModal() {
-        this.showDialog = false;
-        this.isEditing = false;
-      },
-      cancelClick() {
-        this.isEditing = false;
-      },
-      itemClick() {
-        this.showDialog = true;
-        this.isEditing = false;
-      }
+    ...mapMutations(["SET_ITEM", "DELETE_ITEM", "SET_SNACK_MSG"]),
+    editClick() {
+      console.log("editClick => ", this.item.guid);
+      this.isEditing = true;
+      this.showDialog = true;
+    },
+    deleteClick() {
+      this.showDeleteDialog = true;
+    },
+
+    deleteConfirmClick() {
+      this.DELETE_ITEM(this.item.guid);
+      this.showDeleteDialog = false;
+      this.SET_SNACK_MSG("Contact has been deleted");
+    },
+    saveClick(newItem) {
+      console.warn("save");
+      this.SET_ITEM(newItem);
+      this.isEditing = false;
+      this.SET_SNACK_MSG("Contact has been updated");
+    },
+    closeModal() {
+      this.showDialog = false;
+      this.isEditing = false;
+    },
+    cancelClick() {
+      this.isEditing = false;
+    },
+    itemClick(event) {
+      this.showDialog = true;
+      this.isEditing = false;
+      event.stopPropagation();
+    },
+    closeDeleteConfirmModal() {
+      this.showDeleteDialog = false;
+    }
   }
 };
 </script>
@@ -103,8 +117,8 @@ export default {
 
 .contact-row .contact-item .avatar span {
   align-self: center;
-      font-size: 40px;
-    color: green;
+  font-size: 40px;
+  color: green;
 }
 
 .contact-row .contact-item .spacer {
@@ -122,7 +136,7 @@ export default {
   margin-top: 5px;
 }
 
-.contact-row .contact-item .contact-info p{
+.contact-row .contact-item .contact-info p {
   padding: 0px;
   margin-bottom: 0px;
 }
@@ -132,7 +146,6 @@ export default {
 }
 .contact-row .contact-item .contact-info p.phone {
   font-weight: 300;
-  opacity: .5;
+  opacity: 0.5;
 }
-
 </style>

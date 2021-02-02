@@ -2,16 +2,16 @@
   <v-row justify="center">
     <v-dialog v-model="isShowing" persistent max-width="500" width="500">
       <v-card>
-        <v-img
-              :src="randomImage"
-              height="100px"
-            >
-            </v-img>
+        <v-img :src="randomImage" height="100px"> </v-img>
         <v-card-title class="card-header">
-          <div class="headline"> {{headline}} </div> 
-          <div class="date"> 
-            <span class="grey--text" v-if="itemCreatedDate">Created: {{ itemCreatedDate }}</span>
-            <span class="grey--text" v-if="itemUpdatedDate">Updated: {{ itemUpdatedDate }}</span>
+          <div class="headline">{{ headline }}</div>
+          <div class="date">
+            <span class="grey--text" v-if="itemCreatedDate"
+              >Created: {{ itemCreatedDate }}</span
+            >
+            <span class="grey--text" v-if="itemUpdatedDate"
+              >Updated: {{ itemUpdatedDate }}</span
+            >
           </div>
         </v-card-title>
         <v-card-text>
@@ -39,13 +39,33 @@
 
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn class="ma-2" outlined tile color="cyan" v-if="!isEditing" flat @click="$emit('edit')"> Edit </v-btn>
-          <v-btn v-if="!isEditing" outlined tile @click="$emit('delete')" color="purple">Delete</v-btn>
-          <v-btn :disabled="!isSaveBtnActive" outlined tile color="cyan" v-if="isEditing"  @click="saveClick">Save</v-btn>
-          <v-btn v-if="isEditing" outlined tile @click="cancelClick">Cancel</v-btn>
+          <v-btn
+            class="ma-2"
+            outlined
+            tile
+            color="cyan"
+            v-if="!isEditing"
+            @click="$emit('edit')"
+          >
+            Edit
+          </v-btn>
+          <v-btn
+            :disabled="!isSaveBtnActive"
+            outlined
+            tile
+            color="cyan"
+            v-if="isEditing"
+            @click="saveClick"
+            >Save</v-btn
+          >
+          <v-btn v-if="isEditing" outlined tile @click="cancelClick"
+            >Cancel</v-btn
+          >
 
           <v-spacer></v-spacer>
-          <v-btn color="primary" outlined tile @click="$emit('close')"> Close </v-btn>
+          <v-btn color="primary" outlined tile @click="$emit('close')">
+            Close
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -85,9 +105,9 @@ export default {
     },
 
     randomImage() {
-      return 'https://picsum.photos/500?' + this.item.phone
+      return "https://picsum.photos/500?" + this.item.phone;
     },
-    
+
     itemCreatedDate() {
       return this.dateParse(this.item.createdAt);
     },
@@ -98,9 +118,11 @@ export default {
       return this.dateParse(this.item.importedAt);
     },
     isSaveBtnActive() {
-        const name = this.itemBuffer.name
-        const phone = this.itemBuffer.phone
-        return typeof name == 'string' && typeof phone == 'string' && name && phone
+      const name = this.itemBuffer.name;
+      const phone = this.itemBuffer.phone;
+      return (
+        typeof name == "string" && typeof phone == "string" && name && phone
+      );
     }
   },
   methods: {
@@ -111,12 +133,12 @@ export default {
       const dt = date && new Date(date);
       return dt && !isNaN(+dt) && dt.toLocaleString();
     },
-    saveClick(){
-        if(this.isSaveBtnActive) this.$emit('save', this.itemBuffer)
+    saveClick() {
+      if (this.isSaveBtnActive) this.$emit("save", this.itemBuffer);
     },
     cancelClick() {
-        this.refreshItems()
-        this.$emit('cancel')
+      this.refreshItems();
+      this.$emit("cancel");
     }
   }
 };
@@ -144,5 +166,4 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 }
-
 </style>
