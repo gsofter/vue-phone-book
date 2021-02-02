@@ -3,24 +3,21 @@
     <v-card
       slot-scope="{ hover }"
       :class="`elevation-${hover ? 5 : 2}`"
-      class="mx-auto contact-row py-4 px-4"
+      class="mx-auto contact-row px-4"
     >
-      <!-- <div class="contact-item">  -->
-      <v-flex class="row" xs12>
-        <v-list-tile :key="item.name" avatar>
-          <v-list-tile-avatar>
-              <v-icon size="large">mdi-account-circle</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title v-html="item.name"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="item.phone"></v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-          <v-flex>
-            <ActionButtons :item="item" @edit="editClick" @delete="deleteClick" />
-          </v-flex>
-      </v-flex>
-      <!-- </div> -->
+      <div class="contact-item py-2">
+        <div class="avatar"> 
+          <span> <i class="fas fa-user-circle"></i> </span>
+        </div>
+        <div class="contact-info">
+          <p class="username"> {{ item.name }} </p>
+          <p class="phone"> {{ item.phone }} </p>
+        </div>
+        <div class="spacer"> </div>
+        <div class="actions">
+          <ActionButtons :item="item" @edit="editClick" @delete="deleteClick" />
+        </div>
+      </div>
     </v-card>
   </v-hover>
 </template>
@@ -66,8 +63,50 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .contact-row {
   cursor: pointer;
 }
+
+.contact-row .contact-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.contact-row .contact-item .avatar span {
+  align-self: center;
+      font-size: 40px;
+    color: green;
+}
+
+.contact-row .contact-item .spacer {
+  flex-grow: 1;
+}
+
+.contact-row .contact-item .contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.contact-row .contact-item .contact-info p{
+  padding: 0px;
+  margin-bottom: 0px;
+}
+
+.contact-row .contact-item .contact-info p.name {
+  font-weight: 500;
+}
+.contact-row .contact-item .contact-info p.phone {
+  font-weight: 300;
+  opacity: .5;
+}
+
 </style>
