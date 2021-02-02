@@ -39,12 +39,13 @@
 
         <v-divider></v-divider>
         <v-card-actions>
+          <v-btn class="ma-2" outlined tile color="cyan" v-if="!isEditing" flat @click="$emit('edit')"> Edit </v-btn>
+          <v-btn v-if="!isEditing" outlined tile @click="$emit('delete')" color="purple">Delete</v-btn>
+          <v-btn :disabled="!isSaveBtnActive" outlined tile color="cyan" v-if="isEditing"  @click="saveClick">Save</v-btn>
+          <v-btn v-if="isEditing" outlined tile @click="cancelClick">Cancel</v-btn>
+
           <v-spacer></v-spacer>
-          <v-btn v-if="!isEditing" flat @click="$emit('edit')"> Edit </v-btn>
-          <v-btn v-if="!isEditing" flat @click="$emit('delete')" color="purple">Delete</v-btn>
-          <v-btn v-if="!isEditing" flat @click="$emit('delete')" color="purple">Delete</v-btn>
-          <v-btn :disabled="!isSaveBtnActive" v-if="isEditing" flat @click="saveClick">Save</v-btn>
-          <v-btn v-if="isEditing" flat @click="cancelClick">Cancel</v-btn>
+          <v-btn color="primary" outlined tile @click="$emit('close')"> Close </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

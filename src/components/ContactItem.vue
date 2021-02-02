@@ -4,6 +4,7 @@
       slot-scope="{ hover }"
       :class="`elevation-${hover ? 5 : 2}`"
       class="mx-auto contact-row px-4"
+      @click="itemClick"
     >
       <div class="contact-item py-2">
         <div class="avatar"> 
@@ -80,6 +81,10 @@ export default {
       cancelClick() {
         this.isEditing = false;
       },
+      itemClick() {
+        this.showDialog = true;
+        this.isEditing = false;
+      }
   }
 };
 </script>
