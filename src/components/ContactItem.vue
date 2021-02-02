@@ -18,6 +18,17 @@
           <ActionButtons :item="item" @edit="editClick" @delete="deleteClick" />
         </div>
       </div>
+
+      <ContactModal
+        :item="item"
+        :show="showDialog"
+        :isEditing="isEditing"
+        @edit="editClick"
+        @delete="deleteClick"
+        @close="closeModal"
+        @save="saveClick"
+        @cancel="cancelClick"
+      />
     </v-card>
   </v-hover>
 </template>
@@ -25,11 +36,14 @@
 <script>
 import { mapMutations } from 'vuex';
 import ActionButtons from './ActionButtons'
+import ContactModal from './ContactModal'
+
 export default {
   name: "ContactItem",
   props: ["item"],
   components: {
-    ActionButtons
+    ActionButtons,
+    ContactModal
   },
   data() {
     return {
@@ -58,6 +72,13 @@ export default {
         this.SET_ITEM(newItem)
         this.isEditing = false
         this.SET_SNACK_MSG('Contact has been updated')
+      },
+      closeModal() {
+        this.showDialog = false;
+        this.isEditing = false;
+      },
+      cancelClick() {
+        this.isEditing = false;
       },
   }
 };

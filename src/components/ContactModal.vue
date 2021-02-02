@@ -1,18 +1,18 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="isShowing" persistent max-width="290">
+    <v-dialog v-model="isShowing" persistent max-width="500" width="500">
       <v-card>
-        <v-card-title class="headline">
-          Contact Info
-          <span class="grey--text" v-if="itemCreatedDate"
-            >Created: {{ itemCreatedDate }}</span
-          >
-          <span class="grey--text" v-if="itemUpdatedDate"
-            ><br />Updated: {{ itemUpdatedDate }}</span
-          >
-          <span class="grey--text" v-if="itemImportedDate"
-            ><br />Imported: {{ itemImportedDate }}</span
-          >
+        <v-img
+              :src="randomImage"
+              height="100px"
+            >
+            </v-img>
+        <v-card-title class="card-header">
+          <div class="headline"> {{headline}} </div> 
+          <div class="date"> 
+            <span class="grey--text" v-if="itemCreatedDate">Created: {{ itemCreatedDate }}</span>
+            <span class="grey--text" v-if="itemUpdatedDate">Updated: {{ itemUpdatedDate }}</span>
+          </div>
         </v-card-title>
         <v-card-text>
           <v-text-field
@@ -82,6 +82,11 @@ export default {
         !e && this.$emit("close");
       }
     },
+
+    randomImage() {
+      return 'https://picsum.photos/500?' + this.item.phone
+    },
+    
     itemCreatedDate() {
       return this.dateParse(this.item.createdAt);
     },
@@ -115,3 +120,28 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.grey--text {
+  font-size: 1rem;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-header .headline {
+  align-items: flex-start;
+  font-size: 2rem;
+}
+
+.card-header .date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+</style>
