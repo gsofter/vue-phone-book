@@ -66,11 +66,9 @@ export default {
     },
     newContact() {
       this.showDialog = true;
-      console.log("newContact");
     },
     closeModal() {
       this.showDialog = false;
-      console.log("closeModal");
     },
     saveClick(newItem) {
       this.showDialog = false;

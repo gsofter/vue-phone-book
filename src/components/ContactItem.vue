@@ -65,7 +65,6 @@ export default {
   methods: {
     ...mapMutations(["SET_ITEM", "DELETE_ITEM", "SET_SNACK_MSG"]),
     editClick() {
-      console.log("editClick => ", this.item.guid);
       this.isEditing = true;
       this.showDialog = true;
     },
@@ -79,7 +78,6 @@ export default {
       this.SET_SNACK_MSG("Contact has been deleted");
     },
     saveClick(newItem) {
-      console.warn("save");
       this.SET_ITEM(newItem);
       this.isEditing = false;
       this.SET_SNACK_MSG("Contact has been updated");
