@@ -4,7 +4,7 @@
       <v-card-title class="headline">
         Delete Confirmation
       </v-card-title>
-      <v-card-text>Are you sure to remote contact item?.</v-card-text>
+      <v-card-text>Are you sure to remove contact item?.</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="danger darken-1" text @click="agreeClick">
